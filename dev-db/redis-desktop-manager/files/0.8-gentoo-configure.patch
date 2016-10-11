@@ -6,7 +6,7 @@ index cefdbd2..2271f5c 100755
      build_breakpad
  
      print_title "Run: qmake-qt5 && make "
-+elif [  "$os_VENDOR" == "Gentoo" ]; then
++elif [  "Gentoo" == "Gentoo" ]; then
 +    build_breakpad
 +    print_title "Run: qmake && make"
  
