@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit git-r3 flag-o-matic qmake-utils versionator
+inherit versionator git-r3 flag-o-matic qmake-utils
 
 DESCRIPTION="Redis desktop manager"
 HOMEPAGE="http://redisdesktop.com/"
@@ -12,7 +12,7 @@ SRC_URI=""
 
 LICENSE=""
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 **"
 IUSE=""
 
 DEPEND="
@@ -21,31 +21,23 @@ DEPEND="
 	dev-qt/qtdeclarative:5
 	dev-qt/qtquickcontrols:5
 	dev-qt/qtscript:5
-	dev-qt/qtquick1:5
+	dev-qt/qtcharts:5
 
-	sys-devel/gcc:4.9.3
+	>=sys-devel/gcc-5.3.0
 	=net-libs/libssh2-1*
 	dev-vcs/subversion
 "
 RDEPEND="${DEPEND}"
 
-MY_PV=$(replace_version_separator 3 '-')
-MY_PV3=$(get_version_component_range 1-3 ${PV})
 EGIT_REPO_URI="git://github.com/uglide/RedisDesktopManager"
-EGIT_COMMIT="refs/tags/${MY_PV}"
-EGIT_SUBMODULES=( '*' )
-
-src_prepare() {
-	epatch ${FILESDIR}/0.8-gentoo-configure.patch
-	sed -i -e "s/${MY_PV3}-dev/${MY_PV}-9999/" src/rdm.pro
-}
+EGIT_COMMIT="$(replace_version_separator 3 '-')"
 
 src_configure() {
-	cd src && ./configure
+   	cd src && ./configure breakpad && eqmake5
 }
 
 src_compile() {
-	cd src && eqmake5 && emake
+	cd src && emake
 }
 
 src_install() {
