@@ -65,7 +65,7 @@ src_configure() {
 	#sed -e 's@usr/local/lib/libssh2@usr/lib/libssh2@' -i 3rdparty/qredisclient/3rdparty/qsshclient/3rdparty/3rdparty.pri
 	#cd src && ./configure breakpad && echo "#define RDM_VERSION \"${PV}\"" > version.h && eqmake5
 	#sed -e 's@build/cmake/liblz4.a@liblz4.a@' -i 3rdparty/3rdparty.pri
-	cd src && echo "#define RDM_VERSION \"${PV}\"" > version.h && eqmake5 "SYSTEM_LZ4=1"
+	cd src && echo "#define RDM_VERSION \"${PV}\"" > version.h && eqmake5 "SYSTEM_LZ4=1" "VERSION=${PV}-dev"
 }
 
 src_compile() {
